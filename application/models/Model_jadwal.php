@@ -25,13 +25,13 @@ class Model_jadwal extends CI_Model {
     {
         $sql = "CALL jadwal_ruang('$date',$ruang)";
         $query = $this->db->query($sql);
-        foreach ($query->result() as $row)
-        {
-            echo $row->kode_matkul . ' ';
-            echo $row->nomor . ' ';
-            echo $row->nama_ruangan . ' ';
-            echo '<br>';
-        }
+        $res = $query->result();
+
+        //Error pas call procedure
+        $query->next_result(); 
+        $query->free_result(); 
+        
+        return $res;
     }
 
 	public function getAll()
@@ -77,4 +77,5 @@ class Model_jadwal extends CI_Model {
             return true;
         }
     }
+    
 }
