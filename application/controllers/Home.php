@@ -9,22 +9,30 @@ class Home extends CI_Controller {
 		$this->model_j->getFromDate('2019-02-04');
     }
 
-    public function test()
+    public function asisten()
 	{
+        $this->load->model("Model_asisten");
+        //INPUT
+        if ($this->input->server('REQUEST_METHOD') == 'POST'){
+            $this->Model_asisten->insertAsisten();
+        }
+        
+        //VIEW
+        $this->data['asisten'] = $this->Model_asisten->getAll();
+        $this->load->view('admin/asisten',$this->data);
+    }
+
+    public function lab()
+	{
+        //TODO
         $this->viewJadwal();
         $this->inputJadwal();
         $this->load->view('test',$this->data);
     }
 
-    function inputJadwal()
+    public function test()
 	{
-        if ($this->input->server('REQUEST_METHOD') == 'POST'){
-            $this->model_j->insertJadwal();
-        }
-    }
-
-    function viewJadwal()
-    {
+        //VIEW
         /*
             Data dalam 3 dimensi array
             jadwal[ruang][hari][waktu]
@@ -60,5 +68,12 @@ class Home extends CI_Controller {
         foreach ($this->data['ruang'] as $nama ) {
             array_push($this->data['nama_ruangan'],$nama->nama_ruangan);
         }
+
+        //INPUT
+        if ($this->input->server('REQUEST_METHOD') == 'POST'){
+            $this->model_j->insertJadwal();
+        }
+
+        $this->load->view('test',$this->data);
     }
 }
