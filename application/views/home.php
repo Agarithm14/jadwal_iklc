@@ -75,6 +75,8 @@
                                 case 8 : $st = 'st-15';
                                 break;
                                 case 10 : $st = 'st-14';
+                                break;
+                                default : $st = '';
                               }
                               
                               echo "<li class='list-group-item $st'>";

@@ -65,7 +65,7 @@
               <div class="card">
                 <div class="card-header"><h4>Tambah Jadwal</h4></div>
                 <div class="card-body">
-                  <form action="http://localhost/web/jadwal_iklc/index.php/Home/test" method="post">
+                  <form action="http://localhost/web/jadwal_iklc/index.php/Admin/testInput" method="post">
                     <div class="form-group">
                       <label for="tanggal">Tanggal</label>
                       <input type="date" name="tanggal" id="tanggal" value="<?php echo date('Y-m-d')?>">

@@ -48,7 +48,7 @@ class Model_jadwal extends CI_Model {
 
     public function getGroup()
     {
-        $sql = "SELECT * FROM grup_lab ORDER BY kode_matkul,nomor";
+        $sql = "SELECT * FROM asislab ORDER BY kode_matkul,nomor";
         $query = $this->db->query($sql);
         return $query->result();
     }

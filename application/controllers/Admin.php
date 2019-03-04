@@ -68,12 +68,16 @@ class Admin extends CI_Controller {
         foreach ($this->data['ruang'] as $nama ) {
             array_push($this->data['nama_ruangan'],$nama->nama_ruangan);
         }
+        
 
-        //INPUT
+        $this->load->view('test',$this->data);
+    }
+
+    public function testInput(){
         if ($this->input->server('REQUEST_METHOD') == 'POST'){
             $this->model_j->insertJadwal();
         }
-
-        $this->load->view('test',$this->data);
+        header("Location: http://localhost/web/jadwal_iklc/index.php/Admin/test");
+        die();
     }
 }
