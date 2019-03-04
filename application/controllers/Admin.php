@@ -89,7 +89,7 @@ class Admin extends CI_Controller {
         }
         
 
-        $this->load->view('test',$this->data);
+        $this->load->view('Admin/test',$this->data);
     }
 
     public function testInput()

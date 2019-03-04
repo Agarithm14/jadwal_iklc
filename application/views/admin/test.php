@@ -65,6 +65,7 @@
               <div class="card">
                 <div class="card-header"><h4>Tambah Jadwal</h4></div>
                 <div class="card-body">
+                  <div style="overflow-x:auto;">
                   <form action="http://localhost/web/jadwal_iklc/index.php/Admin/testInput" method="post">
                     <div class="form-group">
                       <label for="tanggal">Tanggal</label>
@@ -113,6 +114,7 @@
                     </div>
                     <button type="submit" class="btn btn-primary">Submit</button>
                   </form>
+                  </div>
                 </div>
               </div>
             </div>
