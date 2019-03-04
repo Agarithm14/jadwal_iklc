@@ -1,9 +1,36 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Home extends CI_Controller {
+class Admin extends CI_Controller {
     private $data = array();
 	public function index()
+	{
+        //$this->model_j->insertJadwal('2019-02-04',3,0,'KGV1',4);
+		$this->load->view('home');
+    }
+
+    public function asisten()
+	{
+        $this->load->model("Model_asisten");
+        //INPUT
+        if ($this->input->server('REQUEST_METHOD') == 'POST'){
+            $this->Model_asisten->insertAsisten();
+        }
+        
+        //VIEW
+        $this->data['asisten'] = $this->Model_asisten->getAll();
+        $this->load->view('admin/asisten',$this->data);
+    }
+
+    public function lab()
+	{
+        //TODO
+        $this->viewJadwal();
+        $this->inputJadwal();
+        $this->load->view('test',$this->data);
+    }
+
+    public function test()
 	{
         //VIEW
         /*
@@ -42,11 +69,11 @@ class Home extends CI_Controller {
             array_push($this->data['nama_ruangan'],$nama->nama_ruangan);
         }
 
-        $this->load->view('home',$this->data);
-    }
+        //INPUT
+        if ($this->input->server('REQUEST_METHOD') == 'POST'){
+            $this->model_j->insertJadwal();
+        }
 
-    public function test()
-	{
-        
+        $this->load->view('test',$this->data);
     }
 }

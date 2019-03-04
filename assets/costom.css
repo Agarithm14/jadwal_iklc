@@ -1,0 +1,31 @@
+.list-group-item{
+  font-size: 1em;
+  padding: .5rem;
+}
+
+.jadwal-table{
+  overflow-x: auto;
+  white-space: nowrap;
+  overflow-y: auto;
+}
+
+
+td{
+  padding: .75rem .25rem!important;
+}
+
+.st-18{
+  background-color: rgb(209, 217, 255);
+}
+
+.st-17{
+  background-color: rgb(235, 164, 183);
+}
+
+.st-16{
+  background-color: rgb(175, 245, 232);
+}
+
+.st-15{
+  background-color: rgb(245, 203, 161);
+}
