@@ -77,5 +77,12 @@ class Model_jadwal extends CI_Model {
             return true;
         }
     }
+
+    public function deleteJadwal()
+    {
+        $id = $this->input->post('id-jadwal');
+        $sql = "DELETE FROM jadwal_lab WHERE id='$id'";
+        $query = $this->db->query($sql);
+    }
     
 }

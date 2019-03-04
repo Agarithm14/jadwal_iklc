@@ -38,7 +38,11 @@
           <div class="row ">
             <div class="col">
               <div class="card">
-                
+<!--
+                <div class="card-header">
+                  Tanggal <?php echo date('d/m/Y').'-'.date('d/m/Y', strtotime("+1 week"))?>
+                </div>
+-->
                 <div class="card-body px-0 py-0">
                   <div class="jadwal-table">
                     <table class="table table-striped table-hover">

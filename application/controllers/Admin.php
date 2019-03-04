@@ -100,4 +100,13 @@ class Admin extends CI_Controller {
         header("Location: http://localhost/web/jadwal_iklc/index.php/Admin/test");
         die();
     }
+
+    public function testDelete()
+    {
+        if ($this->input->server('REQUEST_METHOD') == 'POST'){
+            $this->model_j->deleteJadwal();
+        }
+        header("Location: http://localhost/web/jadwal_iklc/index.php/Admin/test");
+        die();
+    }
 }

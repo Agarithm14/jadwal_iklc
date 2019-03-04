@@ -8,6 +8,7 @@
     <!-- CoreUI CSS -->
     <link rel="stylesheet" href="https://unpkg.com/@coreui/coreui/dist/css/coreui.min.css">
     <link rel="stylesheet" href="https://unpkg.com/@coreui/icons/css/coreui-icons.min.css">
+    <link rel="stylesheet" href="<?php echo base_url().'/assets/';?>costom.css">
 
     <title>Hello, world!</title>
   </head>
@@ -25,28 +26,18 @@
           <ul class="nav">
             <li class="nav-title">Nav Title</li>
             <li class="nav-item">
-              <a class="nav-link" href="#">
-                <i class="nav-icon cui-speedometer"></i> Jadwal
+              <a class="nav-link" href="http://localhost/web/jadwal_iklc/index.php/Admin/test">
+                <i class="nav-icon cui-home"></i> Home
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">
+              <a class="nav-link" href="http://localhost/web/jadwal_iklc/index.php/Admin/lab">
                 <i class="nav-icon cui-speedometer"></i> Lab
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">
+              <a class="nav-link" href="http://localhost/web/jadwal_iklc/index.php/Admin/asisten">
                 <i class="nav-icon cui-speedometer"></i> Asisten
-              </a>
-            </li>
-            <li class="nav-item mt-auto">
-              <a class="nav-link nav-link-success" href="https://coreui.io">
-                <i class="nav-icon cui-cloud-download"></i> Download CoreUI</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link nav-link-danger" href="https://coreui.io/pro/">
-                <i class="nav-icon cui-layers"></i> Try CoreUI
-                <strong>PRO</strong>
               </a>
             </li>
           </ul>
@@ -120,7 +111,11 @@
             </div>
             <div class="col">
               <div class="card">
-                <div class="card-header"><h4>Tabel Jadwal</h4></div>
+                <div class="card-header">
+                  <h4>Tabel Jadwal
+                    <small>Tanggal <?php echo date('d/m/Y').'-'.date('d/m/Y', strtotime("+1 week"))?></small>
+                  </h4>
+                </div>
                 <div class="card-body">
                   <table class="table table-hover">
                     <thead>
@@ -134,7 +129,7 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <?php
+                    <?php
                         $foo = 0;
                         foreach($jadwal as $ruang)
                         {
@@ -142,13 +137,31 @@
                           echo '<td><b>'.$nama_ruangan[$foo].'</b></td>'."\r\n";
                           $hari = $ruang;
                           for ($i=0;$i<5;$i++) {
-                            echo '<td><ul class="list-group">'."\r\n";
+                            echo '<td><div class="list-group">'."\r\n";
                             foreach ($hari[$i] as $row) {
-                              echo '<li class="list-group-item">';
+                              
+                              $row->semester = (int) $row->semester;
+                              switch ($row->semester){
+                                case 2 : $st = 'st-18';
+                                break;
+                                case 4 : $st = 'st-17';
+                                break;
+                                case 6 : $st = 'st-16';
+                                break;
+                                case 8 : $st = 'st-15';
+                                break;
+                                case 10 : $st = 'st-14';
+                                break;
+                                default : $st = '';
+                              }
+                              
+                              echo "<button id='$row->id' type='button'";
+                              echo "class='list-group-item list-group-item-action btn-jadwal $st'";
+                              echo "data-toggle='modal' data-target='#editModal'>";
                               echo $row->jam." ".$row->kode_matkul." ".$row->nomor;
-                              echo '</li>'."\r\n";
+                              echo '</button>'."\r\n";
                             }
-                            echo '</ul></td>'."\r\n";
+                            echo '</div></td>'."\r\n";
                           }
                           echo '</tr>'."\r\n";
                           $foo++;
@@ -163,12 +176,45 @@
         </div>
       </main>
     </div>
+<!-- Modal -->
+    <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Edit</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form method="post" action="http://localhost/web/jadwal_iklc/index.php/Admin/testDelete">
+              <input type="text" name="id-jadwal" id="id-jadwal" style="display:none;">
+              <button type="submit" class="btn btn-danger">Hapus</button>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary">Save changes</button>
+          </div>
+        </div>
+      </div>
+    </div>    
     
+
+
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, Bootstrap, then CoreUI  -->
-    <script src="http://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/@coreui/coreui/dist/js/coreui.min.js"></script>
+    <script>
+      $(document).ready(function(){
+        $(".btn-jadwal").click(function(){
+          $("#id-jadwal").val($(this).attr('id'));
+        });
+      });
+      
+    </script>
   </body>
 </html>
