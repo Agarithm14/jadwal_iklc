@@ -65,50 +65,43 @@
               <div class="card">
                 <div class="card-header"><h4>Tambah Jadwal</h4></div>
                 <div class="card-body">
-                  <form action="http://localhost/web/jadwal_iklc/index.php/Home/test" method="post">
+                  <form action="http://localhost/web/jadwal_iklc/index.php/Admin/labInput" method="post">
                     <div class="form-group">
-                      <label for="tanggal">Tanggal</label>
-                      <input type="date" name="tanggal" id="tanggal" value="<?php echo date('Y-m-d')?>">
-                    </div>
-                    <div class="form-group">
-                      <label for="waktu">Jam</label>
-                      <select class="form-control" name="waktu">
+                      <label for="kode_asisten">Kode Asisten</label>
+                      <select class="form-control" name="kode_asisten">
                         <?php
-                          foreach ($waktu as $row) {
-                              echo "<option value='$row->indeks'>";
-                              echo $row->jam . '</option>'."\r\n";
+                          foreach($asisten as $row)
+                          {
+                            echo "<option value='$row->Kode'>";
+                            echo $row->Kode . '</option>'."\r\n";
                           }
                         ?>
                       </select>
                     </div>
                     <div class="form-group">
-                      <label for="tipe">Tipe</label>
-                      <select class="form-control" name="tipe">
-                        <option value="0">Ilkom</option>
-                        <option value="1">TI</option>
-                      </select>
-                    </div>
-                    <div class="form-group">
-                      <label for="id_grup">Grup</label>
-                      <select class="form-control" name="id_grup">
+                      <label for="kode_matkul">Kode Mata Kuliah</label>
+                      <select class="form-control" name="kode_matkul">
                         <?php
-                          foreach ($grup as $row) {
-                            echo "<option value='$row->id'>";
-                            echo $row->kode_matkul.' ';
-                            echo $row->nomor.'</option>'."\r\n";
+                          foreach ($matkul as $row) {
+                            echo "<option value='$row->kode_matkul'>";
+                            echo $row->kode_matkul.'</option>'."\r\n";
                           } 
                         ?>
                       </select>
                     </div>
+
                     <div class="form-group">
-                      <label for="ruang">Ruang</label>
-                      <select class="form-control" name="ruang">
-                        <?php
-                          foreach ($ruang as $row) {
-                              echo "<option value='$row->no_ruangan'>";
-                              echo $row->nama_ruangan.'</option>'."\r\n";
-                          }
-                        ?>
+                      <label for="nomor">Nomor Grup</label>
+                      <select class="form-control" name="nomor">
+                        <option value="0">0</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
                       </select>
                     </div>
                     <button type="submit" class="btn btn-primary">Submit</button>
@@ -116,47 +109,40 @@
                 </div>
               </div>
             </div>
-            <div class="col">
+<?php
+foreach ($tabel_matkul as $mat){
+  ?>
+            <div class="col-3">
               <div class="card">
-                <div class="card-header"><h4>Tabel Jadwal</h4></div>
+                <div class="card-header"><h4><?php echo $mat[0]->kode_matkul; ?></h4></div>
                 <div class="card-body">
                   <table class="table table-hover">
                     <thead>
                       <tr>
-                        <th>Lab</th>
-                        <th>Senin</th>
-                        <th>Selasa</th>
-                        <th>Rabu</th>
-                        <th>Kamis</th>
-                        <th>Jumat</th>
+                        <th>Kode Lab</th>
+                        <th>Kode Asisten</th>
                       </tr>
                     </thead>
                     <tbody>
                       <?php
-                        $foo = 0;
-                        foreach($jadwal as $ruang)
-                        {
+                        foreach ($mat as $row ) {
                           echo '<tr>'."\r\n";
-                          echo '<td><b>'.$nama_ruangan[$foo].'</b></td>'."\r\n";
-                          $hari = $ruang;
-                          for ($i=0;$i<5;$i++) {
-                            echo '<td><ul class="list-group">'."\r\n";
-                            foreach ($hari[$i] as $row) {
-                              echo '<li class="list-group-item">';
-                              echo $row->jam." ".$row->kode_matkul." ".$row->nomor;
-                              echo '</li>'."\r\n";
-                            }
-                            echo '</ul></td>'."\r\n";
-                          }
+                          echo '<td>'."\r\n";
+                          echo $row->id;
+                          echo '</td>'."\r\n";
+                          echo '<td>'."\r\n";
+                          echo $row->kode_asisten;
+                          echo '</td>'."\r\n";
                           echo '</tr>'."\r\n";
-                          $foo++;
                         }
+                          
                       ?>
                     </tbody>
                   </table>
                 </div>
               </div>
             </div>
+            <?php }?>
           </div>
         </div>
       </main>

@@ -3,6 +3,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Admin extends CI_Controller {
     private $data = array();
+
+    function __construct() {
+        parent::__construct();
+        $this->load->model("Model_asisten");
+    }
+
 	public function index()
 	{
         //$this->model_j->insertJadwal('2019-02-04',3,0,'KGV1',4);
@@ -11,23 +17,36 @@ class Admin extends CI_Controller {
 
     public function asisten()
 	{
-        $this->load->model("Model_asisten");
-        //INPUT
-        if ($this->input->server('REQUEST_METHOD') == 'POST'){
-            $this->Model_asisten->insertAsisten();
-        }
-        
         //VIEW
         $this->data['asisten'] = $this->Model_asisten->getAll();
         $this->load->view('admin/asisten',$this->data);
     }
 
+    public function asistenInput()
+    {
+        if ($this->input->server('REQUEST_METHOD') == 'POST'){
+            $this->Model_asisten->insertAsisten();
+        }
+        header("Location: http://localhost/web/jadwal_iklc/index.php/Admin/asisten");
+        die();
+    }
+
     public function lab()
 	{
         //TODO
-        $this->viewJadwal();
-        $this->inputJadwal();
-        $this->load->view('test',$this->data);
+        $this->data['asisten'] = $this->Model_asisten->getAsisten();
+        $this->data['matkul'] = $this->Model_asisten->getMatkul();
+        $this->data['tabel_matkul'] = $this->Model_asisten->getAsislab();
+        $this->load->view('Admin/lab',$this->data);
+    }
+
+    public function labInput()
+	{
+        if ($this->input->server('REQUEST_METHOD') == 'POST'){
+            $this->Model_asisten->insertAsislab();
+        }
+        header("Location: http://localhost/web/jadwal_iklc/index.php/Admin/lab");
+        die();
     }
 
     public function test()
@@ -73,7 +92,8 @@ class Admin extends CI_Controller {
         $this->load->view('test',$this->data);
     }
 
-    public function testInput(){
+    public function testInput()
+    {
         if ($this->input->server('REQUEST_METHOD') == 'POST'){
             $this->model_j->insertJadwal();
         }
